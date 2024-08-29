@@ -9,7 +9,6 @@ class ContaBancaria extends Model
 {
     use HasFactory;
 
-    // Especificar o nome correto da tabela
     protected $table = 'contas_bancarias';
 
     protected $fillable = ['nome', 'saldo'];
