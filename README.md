@@ -1,66 +1,83 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Gerenciamento de Contas Bancárias
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um projeto Laravel que implementa um sistema de gerenciamento de contas bancárias, incluindo funcionalidades para criar contas, realizar transferências imediatas e agendadas entre contas, e consultar o saldo das contas.
 
-## About Laravel
+## Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<ul>
+    <li><strong>Criação de Contas Bancárias</strong>: Permite criar uma nova conta bancária com nome e saldo inicial.</li>
+    <li><strong>Transferência Imediata</strong>: Realiza transferências imediatas entre duas contas bancárias, garantindo que a conta de origem não fique com saldo negativo.</li>
+    <li><strong>Agendamento de Transferências</strong>: Permite agendar transferências que serão processadas posteriormente pelo agendador.</li>
+    <li><strong>Consulta de Contas</strong>: Consulta todas as contas ou uma conta específica pelo seu ID.</li>
+</ul>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<ul>
+    <li>PHP 8.0 ou superior</li>
+    <li>Composer</li>
+    <li>MySQL</li>
+    <li>Laravel 9.x</li>
+</ul>
 
-## Learning Laravel
+## Rotas da API
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<ol>
+    <li>
+        <strong>Criar Conta Bancária</strong><br>
+        <ul>
+            <li><strong>Endpoint</strong>: <code>/contas</code></li><br>
+            <li><strong>Método</strong>: <code>POST</code></li><br>
+            <li><strong>Descrição</strong>: Cria uma nova conta bancária.</li><br>
+            <li><strong>Parâmetros</strong>:</li>
+            <ul>
+                <li><code>nome</code>: Nome do titular da conta (<code>string</code>).</li><br>
+                <li><code>saldo</code>: Saldo inicial da conta (<code>decimal</code>).</li>
+            </ul>
+        </ul>
+    </li>
+    <br>
+    <li>
+        <strong>Transferir Entre Contas</strong><br>
+        <ul>
+            <li><strong>Endpoint</strong>: <code>/transfer</code></li><br>
+            <li><strong>Método</strong>: <code>POST</code></li><br>
+            <li><strong>Descrição</strong>: Transfere um valor de uma conta para outra imediatamente.</li><br>
+            <li><strong>Parâmetros</strong>:</li>
+            <ul>
+                <li><code>sender</code>: ID da conta de origem (<code>int</code>).</li><br>
+                <li><code>receiver</code>: ID da conta de destino (<code>int</code>).</li><br>
+                <li><code>amount</code>: Valor a ser transferido (<code>decimal</code>).</li>
+            </ul>
+        </ul>
+    </li>
+    <br>
+    <li>
+        <strong>Agendar Transferência</strong><br>
+        <ul>
+            <li><strong>Endpoint</strong>: <code>/agendar</code></li><br>
+            <li><strong>Método</strong>: <code>POST</code></li><br>
+            <li><strong>Descrição</strong>: Agenda uma transferência entre contas para ser processada posteriormente.</li><br>
+            <li><strong>Parâmetros</strong>:</li>
+            <ul>
+                <li><code>sender</code>: ID da conta de origem (<code>int</code>).</li><br>
+                <li><code>receiver</code>: ID da conta de destino (<code>int</code>).</li><br>
+                <li><code>amount</code>: Valor a ser transferido (<code>decimal</code>).</li><br>
+                <li><code>schedule_date</code>: Data e hora para agendar a transferência (<code>datetime</code>).</li>
+            </ul>
+        </ul>
+    </li>
+    <br>
+    <li>
+        <strong>Consultar Contas</strong><br>
+        <ul>
+            <li><strong>Endpoint</strong>: <code>/conta</code></li><br>
+            <li><strong>Método</strong>: <code>GET</code></li><br>
+            <li><strong>Descrição</strong>: Consulta todas as contas ou uma conta específica.</li><br>
+            <li><strong>Parâmetros</strong>:</li>
+            <ul>
+                <li><code>id</code> (opcional): ID da conta a ser consultada (<code>int</code>).</li>
+            </ul>
+        </ul>
+    </li>
+</ol>
